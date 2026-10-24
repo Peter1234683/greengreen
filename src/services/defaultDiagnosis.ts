@@ -1,0 +1,66 @@
+import { DiagnosisResult } from "../types";
+
+export const DEFAULT_INITIAL_DIAGNOSIS: DiagnosisResult = {
+  agingScore: 78,
+  riskLevel: "주의(개선권장)",
+  insulationGrade: "F등급 (취약)",
+  energyLossReductionEst: 35,
+  defects: [
+    {
+      part: "거실 및 발코니 알루미늄 단창",
+      severity: "high",
+      finding: "은색 알루미늄 단판 프레임 열교로 결로수 고임 발생, 모헤어 마모로 인한 틈새 외풍(침기) 유입",
+      recommendation: "26mm 로이복층유리 1등급 시스템 이중창 전면 교체 (아르곤 가스 주입)",
+    },
+    {
+      part: "외기 직접 접촉 북측 벽체 모서리",
+      severity: "medium",
+      finding: "동절기 표면온도 10.5℃ 이하로 급랭하여 결로선 형성 및 흑색 곰팡이 포자 번식 흔적 식별",
+      recommendation: "내벽 고단열 복합단열재(준불연 PF보드 50mm+) 보강 및 기밀방습 테이핑",
+    },
+    {
+      part: "창틀 외벽 접합부 실리콘 코킹",
+      severity: "medium",
+      finding: "자외선 노출로 인한 실리콘 실란트 경화 및 미세 균열로 우천 시 빗물 침투 위험",
+      recommendation: "기존 노후 코킹 V커팅 완전 제거 후 변성실리콘 고내후성 실란트 2차 방수 코킹",
+    },
+  ],
+  recommendedWorks: [
+    {
+      id: "work-window-1",
+      title: "고효율 1등급 로이 복층창호 전면 교체",
+      category: "창호",
+      priority: "필수(최우선)",
+      estimatedCostRange: "850만 ~ 1,350만원",
+      subsidyEligible: true,
+      subsidyNote: "국토부 그린리모델링 이자지원사업 대상 (연 3~4% 대출이자 5년간 지원)",
+      expectedBenefit: "난방비 30~38% 즉각 절감 및 외풍/외부 소음 100% 차단",
+      compatibilitySpecs: "26mm 로이복층유리 / 아르곤가스 주입 / 에너지소비효율 1등급",
+    },
+    {
+      id: "work-insulation-2",
+      title: "외벽/외기 접촉부 고단열 복합 보강공사",
+      category: "단열",
+      priority: "필수(최우선)",
+      estimatedCostRange: "600만 ~ 950만원",
+      subsidyEligible: true,
+      subsidyNote: "지자체 건물에너지효율화(BRP) 무이자 융자 대상 (최대 1,500만원 지원)",
+      expectedBenefit: "모서리 결로·곰팡이 100% 예방 및 실내 쾌적 온도 유지",
+      compatibilitySpecs: "준불연 PF보드 100mm+ / 기밀방습시트 일체형",
+    },
+    {
+      id: "work-boiler-3",
+      title: "친환경 1등급 콘덴싱 가스보일러 교체",
+      category: "설비",
+      priority: "권장",
+      estimatedCostRange: "90만 ~ 130만원",
+      subsidyEligible: true,
+      subsidyNote: "환경부 및 지자체 친환경 보일러 보조금 10만원 지원",
+      expectedBenefit: "가스비 약 12% 추가 절감 및 질소산화물 배출 저감",
+      compatibilitySpecs: "에너지소비효율 1등급 / 콘덴싱 20,000kcal/h 이상",
+    },
+  ],
+  expertVerdict: "해당 건물은 1994년 준공된 32년차 건축물로, 당시 단열재 법적 기준(외벽 50mm 미만)이 현행(중부1지역 135mm 이상) 대비 현저히 취약합니다. 특히 노후 알루미늄 샤시의 높은 열관류율로 인해 동절기 난방열의 약 40%가 창호로 유출되고 있으므로, 1등급 고효율 창호 교체와 외기 접촉부 단열 보강을 결합한 그린리모델링이 시급합니다.",
+  clusterSuitability: "마포구 연남·성산 일대 유사 연식 다가구 주택과 반경 1.5km 내 묶음 시공 시, 창호 공장 직발주 및 사다리차 공동 임차로 약 18%의 공사비 절감이 가능합니다.",
+  isAiGenerated: true,
+};

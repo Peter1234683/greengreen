@@ -1,0 +1,6 @@
+{
+  "name": "그린 캠프 (Green Camp)",
+  "description": "개인 건축물 소유주를 위한 AI 기반 그린리모델링 자가진단 및 이웃 수요 매칭 플랫폼",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

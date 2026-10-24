@@ -1,0 +1,19 @@
+{
+  "id": "/",
+  "name": "그린토피아 (GreenTopia)",
+  "short_name": "그린토피아",
+  "description": "AI가 이웃 건물의 그린리모델링 공사 수요를 묶어주는 민간 공동공사 플랫폼",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#059669",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

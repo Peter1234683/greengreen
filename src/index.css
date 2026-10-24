@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #fdfcf8;
+  --ink: #1a1c1e;
+  --accent: #059669;
+  --ink-faint: rgba(26, 28, 30, 0.08);
+  --ink-medium: rgba(26, 28, 30, 0.6);
+  --panel-bg: #ffffff;
+  --panel-border: rgba(26, 28, 30, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Typography Helpers - Variation 3 */
+.font-serif-garamond {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-geist,
+.tech-mono,
+.stat-label,
+.font-mono {
+  font-family: 'Geist Mono', monospace;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Header & Brand */
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.brand h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.2rem;
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.brand span {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ink-medium);
+}
+
+/* Top Nav (Variation 3) */
+nav.top-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+nav.top-nav button {
+  background: none;
+  border: none;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-medium);
+  cursor: pointer;
+  padding: 0.4rem 0.2rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+nav.top-nav button:hover {
+  color: var(--ink);
+}
+
+nav.top-nav button.active {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  font-weight: 700;
+}
+
+/* Hero Typography */
+.hero-text h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+
+.hero-text h2 span {
+  color: var(--accent);
+  display: block;
+}
+
+.description {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink-medium);
+  max-width: 520px;
+}
+
+/* Dashboard Preview & Audit Block */
+.dashboard-preview {
+  background: #ffffff;
+  border: 1px solid var(--ink-faint);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.04);
+  border-radius: 36px;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.audit-info {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.5rem;
+}
+
+.audit-info h3 {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.audit-info p {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.metric-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.metric-item .label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metric-item .value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+/* Buttons */
+.btn-green {
+  background: var(--accent);
+  color: #ffffff;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-green:hover {
+  background: #047857;
+}
+
+.btn-green:active {
+  transform: scale(0.98);
+}
+
+.btn-outline {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-outline-dark {
+  border: 1px solid var(--ink-faint);
+  color: var(--ink);
+  padding: 0.75rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-dark:hover {
+  border-color: var(--ink);
+}
+
+/* Floating Onboarding Card (Variation 3) */
+.onboarding-card {
+  background: var(--ink);
+  color: #ffffff;
+  padding: 2.75rem;
+  border-radius: 32px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
+}
+
+.feature-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 1.5rem 0;
+}
+
+.dot {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  opacity: 0.85;
+  line-height: 1.45;
+}
+
+.dot::before {
+  content: "→";
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* Footer (Variation 3 Editorial) */
+footer.variation3-footer {
+  padding: 1.5rem 3rem;
+  border-top: 1px solid var(--ink-faint);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--ink-medium);
+  letter-spacing: 0.04em;
+  background-color: var(--bg);
+}
+
+/* Surface Cards in Light Theme */
+.gt-editorial-card {
+  background: #ffffff;
+  border: 1px solid var(--ink-faint);
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gt-editorial-card:hover {
+  border-color: rgba(26, 28, 30, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom Scrollbar for Warm Cream Theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(26, 28, 30, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 28, 30, 0.3);
+}
