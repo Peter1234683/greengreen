@@ -156,78 +156,80 @@ export const SplashOnboarding: React.FC<SplashOnboardingProps> = ({
 
   return (
     <div className="modal-overlay">
-      {/* ================= STEP 1: SPLASH (VARIATION 3 ONBOARDING CARD) ================= */}
+      {/* ================= STEP 1: SPLASH (VARIATION 4 ONBOARDING CARD) ================= */}
       {step === "splash" && (
-        <div className="onboarding-card relative max-w-lg w-full shadow-2xl">
+        <div className="v4-onboarding-modal relative shadow-2xl">
           <button
             onClick={onCancel}
-            className="absolute top-5 right-5 text-xs font-geist text-white/50 hover:text-white p-1"
+            className="absolute top-5 right-5 text-xs font-jetbrains text-[#111113]/40 hover:text-[#111113] p-1 uppercase"
             title="닫기"
           >
-            ✕ CLOSE
+            [CLOSE ×]
           </button>
           
-          <span className="font-geist text-[10px] uppercase tracking-[0.2em] text-[#059669] font-semibold block mb-2">
-            GREENTOPIA AI PLATFORM
-          </span>
-          <h3 className="text-2xl sm:text-3xl font-bold font-inter text-white tracking-tight leading-tight">
+          <div className="meta-label text-[#2E5C4E] font-semibold mb-2">
+            [01] GREENTOPIA PLATFORM
+          </div>
+          <h3 className="text-3xl font-bold font-inter text-[#111113] tracking-[-0.04em] leading-[0.95] mb-3">
             Build together.<br />
-            <span className="text-[#059669]">Save together.</span>
+            <span className="text-[#2E5C4E]">Save together.</span>
           </h3>
-          <p className="mt-2 text-xs text-white/70 leading-relaxed font-inter">
-            노후 주택의 창호·단열·보일러 교체 수요를 AI가 인근 이웃과 묶어 최대 22% 비용 절감과 안심 시공을 제공합니다.
+          <p className="text-xs text-[#111113]/70 leading-relaxed font-inter mb-6">
+            AI가 이웃 건물의 그린리모델링 공사 수요를 묶어주는 민간 공동공사 플랫폼입니다. 혼자 하면 비싸지만, 같이 고치면 최대 22% 비용을 아낄 수 있습니다.
           </p>
 
-          <div className="feature-dots">
-            <div className="dot">
-              <span>인근 300m 이웃 건물과 묶음 공사로 자재비 및 인건비 최대 22% 절감</span>
+          {/* Key Specs Grid */}
+          <div className="grid grid-cols-2 gap-3 mb-6 p-4 bg-[#F8F7F4] rounded-2xl border border-[rgba(17,17,19,0.06)]">
+            <div>
+              <div className="meta-label mb-0.5">ACTIVE PROJECTS</div>
+              <div className="text-xl font-bold font-inter text-[#111113]">101 EA</div>
+              <div className="text-[10px] text-[#111113]/60">대구 시범 권역</div>
             </div>
-            <div className="dot">
-              <span>국토부 등록 및 전문 면허 PQ 심사를 통과한 검증된 그린파트너 시공사</span>
-            </div>
-            <div className="dot">
-              <span>SGI서울보증 하자보수이행증권 100% 발급 및 공정별 에스크로 안심 정산</span>
+            <div>
+              <div className="meta-label text-[#2E5C4E] mb-0.5">COST BENEFIT</div>
+              <div className="text-xl font-bold font-inter text-[#2E5C4E]">-22%</div>
+              <div className="text-[10px] text-[#111113]/60">공동 발주 절감율</div>
             </div>
           </div>
 
-          <div className="actions flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col gap-2.5">
             <button
               type="button"
               onClick={() => setStep("form_customer")}
-              className="btn-green flex-1 justify-center py-3 text-xs"
+              className="btn-cta w-full text-center justify-center py-3 text-sm"
             >
-              건물주로 시작하기 →
+              건물주로 시작하기
             </button>
             <button
               type="button"
               onClick={() => setStep("form_contractor")}
-              className="btn-outline flex-1 justify-center py-3 text-xs"
+              className="btn-cta-outline w-full text-center justify-center py-3 text-sm"
             >
               시공업체로 참여하기
             </button>
           </div>
 
           {/* Quick Demo Shortcuts */}
-          <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-xs font-geist">
-            <span className="text-white/40">DEMO QUICK SWITCH:</span>
+          <div className="mt-6 pt-4 border-t border-[rgba(17,17,19,0.08)] flex flex-wrap items-center justify-between gap-2 text-xs font-jetbrains">
+            <span className="text-[#111113]/40">DEMO SWITCH:</span>
             <button
               type="button"
               onClick={onQuickDemoCustomer}
-              className="text-white hover:text-[#059669] font-medium"
+              className="text-[#111113] hover:text-[#2E5C4E] font-semibold"
             >
               [건물주 체험]
             </button>
             <button
               type="button"
               onClick={onQuickDemoContractor}
-              className="text-white hover:text-[#059669] font-medium"
+              className="text-[#111113] hover:text-[#2E5C4E] font-semibold"
             >
               [시공업체 체험]
             </button>
             <button
               type="button"
               onClick={onCancel}
-              className="text-white/40 hover:text-white"
+              className="text-[#111113]/40 hover:text-[#111113]"
             >
               [둘러보기]
             </button>
@@ -237,7 +239,7 @@ export const SplashOnboarding: React.FC<SplashOnboardingProps> = ({
 
       {/* Other Steps inside container */}
       {step !== "splash" && (
-        <div className="w-full max-w-2xl bg-[#ffffff] text-[#1a1c1e] border border-[rgba(26,28,30,0.12)] shadow-2xl rounded-3xl overflow-hidden my-8 max-h-[90vh] overflow-y-auto">
+        <div className="w-full max-w-2xl bg-[#FFFFFF] text-[#111113] border border-[rgba(17,17,19,0.08)] shadow-2xl rounded-3xl overflow-hidden my-8 max-h-[90vh] overflow-y-auto">
 
         {/* ================= STEP 2: ROLE SELECT ================= */}
         {step === "role_select" && (

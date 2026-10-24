@@ -21,7 +21,7 @@ import { BuildingLedgerData, DiagnosisResult, ContractorBid, OptimizedCluster, M
 import { PRESET_BUILDINGS } from "./services/buildingLedgerService";
 import { PRESET_SAMPLE_IMAGES } from "./services/sampleImages";
 import { DEFAULT_INITIAL_DIAGNOSIS } from "./services/defaultDiagnosis";
-import { ArrowRight, ChevronRight, Sparkles, Building2, ShieldCheck, TrendingDown, Users } from "lucide-react";
+import { ArrowRight, ChevronRight, ShieldCheck, Sparkles, Building2, Layers } from "lucide-react";
 
 export default function App() {
   const {
@@ -118,21 +118,21 @@ export default function App() {
   const getSectionHeader = () => {
     if (isCommunityOpen) {
       return {
-        tag: "NEIGHBOR COMMUNITY // CHAT",
+        tag: "NEIGHBOR COMMUNITY",
         title: "이웃 소통 게시판 & 공동공사 제안",
         desc: "인근 건물주들과 함께 공사 수요를 논의하고 일정 조율을 요청하세요.",
       };
     }
     if (activeRole === "admin") {
       return {
-        tag: "ADMINISTRATION // PQ GOVERNANCE",
+        tag: "PQ GOVERNANCE // AUDIT",
         title: "운영자 관리 콘솔 및 시공업체 PQ 심사",
         desc: "국토부 등록 서류 검증, 입찰 방식 승인 및 대구 100동 파일럿 현황 관리",
       };
     }
     if (activeRole === "contractor") {
       return {
-        tag: "CONTRACTOR OPS // BIDDING ENGINE",
+        tag: "CONTRACTOR OPS // BIDDING",
         title: "그린리모델링 시공업체 입찰 및 공사 관리",
         desc: "대구 권역 AI 클러스터링 묶음 공고 탐색 및 경쟁 입찰 참여",
       };
@@ -165,7 +165,7 @@ export default function App() {
         };
       default:
         return {
-          tag: "GREENTOPIA // OVERVIEW",
+          tag: "OVERVIEW // DASHBOARD",
           title: "내 집 상태 및 공동 그린리모델링 현황",
           desc: "혼자 고치면 비싸고, 모아 고치면 싸다. AI 기반 대구 노후건축물 공동공사 플랫폼",
         };
@@ -175,8 +175,8 @@ export default function App() {
   const headerInfo = getSectionHeader();
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#fdfcf8] text-[#1a1c1e] font-inter">
-      {/* 1. Header (Variation 3 Editorial Header) */}
+    <div className="min-h-screen flex flex-col bg-[#F8F7F4] text-[#111113] font-inter">
+      {/* 1. Header (Variation 4 Header) */}
       <Header
         activeRole={activeRole}
         onSwitchRole={(role) => {
@@ -193,21 +193,171 @@ export default function App() {
         totalContractorsCount={contractors.length}
       />
 
-      {/* 2. Top Hero & Dashboard Preview Section (Variation 3 Composition) */}
-      <section className="border-b border-[rgba(26,28,30,0.08)] bg-gradient-to-b from-[#fdfcf8] to-[#f7f5ee]/40 py-10 sm:py-16 px-6 lg:px-12">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          {/* Left: Hero Editorial Typography */}
-          <div className="hero-text">
-            <h2>
-              Build together.
-              <span>Save together.</span>
+      {/* 2. Main Layout (Variation 4: 280px Aside + Hero & Content Grid) */}
+      <main className="flex-1 grid grid-cols-1 lg:grid-cols-[280px_1fr] min-h-[calc(100vh-73px)]">
+        {/* Left Aside (Variation 4 Specification) */}
+        <aside className="p-6 sm:p-8 border-b lg:border-b-0 lg:border-r border-[rgba(17,17,19,0.08)] flex flex-col gap-5 bg-[#F8F7F4]">
+          {/* Card 1: Active Projects */}
+          <div className="card">
+            <div className="meta-label">[01] ACTIVE PROJECTS</div>
+            <div className="stat">{buildings.length}</div>
+            <div className="text-xs text-[#111113]/70 mt-1 leading-snug">
+              대구권 그린리모델링 공동수주 파이프라인
+            </div>
+          </div>
+
+          {/* Card 2: Cost Benefit (Forest Green Accent) */}
+          <div className="card-accent">
+            <div className="meta-label text-white/70">COST BENEFIT</div>
+            <div className="stat">-22%</div>
+            <div className="text-xs text-white/80 mt-1 leading-snug">
+              평균 공동 발주 시 자재/공수 비용 절감율
+            </div>
+          </div>
+
+          {/* Navigation Shortcuts for Current Role */}
+          <div className="pt-2 flex flex-col gap-1.5">
+            <div className="meta-label mb-1">NAVIGATION</div>
+            {activeRole === "customer" ? (
+              <div className="flex flex-col gap-1 text-xs font-jetbrains">
+                <button
+                  onClick={() => {
+                    setIsCommunityOpen(false);
+                    setCustomerTab("home");
+                  }}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    customerTab === "home" && !isCommunityOpen
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [01] 대시보드 홈
+                </button>
+                <button
+                  onClick={() => {
+                    setIsCommunityOpen(false);
+                    setCustomerTab("diagnosis");
+                  }}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    customerTab === "diagnosis"
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [02] AI 에너지 진단
+                </button>
+                <button
+                  onClick={() => {
+                    setIsCommunityOpen(false);
+                    setCustomerTab("cluster");
+                  }}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    customerTab === "cluster"
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [03] 공동공사 클러스터
+                </button>
+                <button
+                  onClick={() => {
+                    setIsCommunityOpen(false);
+                    setCustomerTab("my_project");
+                  }}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    customerTab === "my_project"
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [04] 스마트계약 & 에스크로
+                </button>
+                <button
+                  onClick={() => setIsCommunityOpen(true)}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    isCommunityOpen
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [05] 이웃 소통 게시판
+                </button>
+                <button
+                  onClick={() => {
+                    setIsCommunityOpen(false);
+                    setCustomerTab("my_page");
+                  }}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    customerTab === "my_page"
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [06] 마이페이지
+                </button>
+              </div>
+            ) : activeRole === "contractor" ? (
+              <div className="flex flex-col gap-1 text-xs font-jetbrains">
+                <button
+                  onClick={() => setContractorTab("bids_search")}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    contractorTab === "bids_search"
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [01] 묶음 수주 공고
+                </button>
+                <button
+                  onClick={() => setContractorTab("bids_manage")}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    contractorTab === "bids_manage"
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [02] 제출 입찰 관리
+                </button>
+                <button
+                  onClick={() => setContractorTab("reputation")}
+                  className={`text-left px-3 py-2 rounded-xl transition-all ${
+                    contractorTab === "reputation"
+                      ? "bg-[#111113] text-white font-medium"
+                      : "text-[#111113]/60 hover:text-[#111113] hover:bg-black/5"
+                  }`}
+                >
+                  [03] 그린파트너 등급·평판
+                </button>
+              </div>
+            ) : (
+              <div className="text-xs font-jetbrains text-[#111113]/70 space-y-2 p-3 bg-white rounded-xl border border-[rgba(17,17,19,0.08)]">
+                <div>PQ 심사 대기: <span className="font-bold text-[#2E5C4E]">{contractors.filter(c => c.pqStatus === "pending").length}건</span></div>
+                <div>운영 상태: <span className="font-bold text-emerald-700">ONLINE (PROD)</span></div>
+                <div>검증 시공사: <span className="font-bold">{contractors.length}개사</span></div>
+              </div>
+            )}
+          </div>
+
+          <div className="mt-auto pt-4 border-t border-[rgba(17,17,19,0.08)] text-[10px] font-jetbrains text-[#111113]/40">
+            DISTRICT: DAEGU METROPOLITAN<br />
+            ESCROW: SGI 100% ASSURANCE
+          </div>
+        </aside>
+
+        {/* Right Section: Hero + Workflows */}
+        <div className="flex-1 flex flex-col min-w-0 pb-24 lg:pb-12 overflow-y-auto">
+          {/* Hero Section (Variation 4 Hero) */}
+          <section className="p-8 sm:p-14 border-b border-[rgba(17,17,19,0.08)] flex flex-col justify-center bg-gradient-to-b from-[#F8F7F4] to-white/40">
+            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-[-0.06em] leading-[0.9] mb-4 text-[#111113]">
+              Build together.<br />
+              <span className="text-[#2E5C4E]">Save together.</span>
             </h2>
-            <p className="description mb-6">
-              대구 노후 단독·다가구 주택 소유자를 위한 AI 민간 그린리모델링 공동공사 플랫폼.
-              혼자 고치면 비싸지만, 반경 300m 이웃과 묶으면 자재 대량 구매 및 동선 효율화로 최대 22% 비용을 절감합니다.
+            <p className="max-w-[560px] text-base sm:text-lg leading-relaxed text-[#111113]/70 mb-8 font-inter">
+              AI가 이웃 건물의 그린리모델링 공사 수요를 묶어주는 민간 공동공사 플랫폼입니다. 혼자 하면 비싸지만, 같이 고치면 효율적입니다.
             </p>
 
-            <div className="flex flex-wrap gap-3">
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-3">
               {activeRole === "customer" && (
                 <>
                   <button
@@ -215,17 +365,17 @@ export default function App() {
                       setIsCommunityOpen(false);
                       setCustomerTab("diagnosis");
                     }}
-                    className="btn-green"
+                    className="btn-cta"
                   >
                     <span>무료 3분 진단 시작</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 ml-1" />
                   </button>
                   <button
                     onClick={() => {
                       setIsCommunityOpen(false);
                       setCustomerTab("cluster");
                     }}
-                    className="btn-outline-dark"
+                    className="btn-cta-outline"
                   >
                     <span>공동공사 클러스터 확인</span>
                   </button>
@@ -234,300 +384,144 @@ export default function App() {
               {activeRole === "contractor" && (
                 <button
                   onClick={() => setContractorTab("bids_search")}
-                  className="btn-green"
+                  className="btn-cta-accent"
                 >
                   <span>묶음 수주 공고 입찰하기</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
               )}
               {activeRole === "admin" && (
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-xs font-geist">
-                  <span className="w-2 h-2 rounded-full bg-[#059669]"></span>
-                  <span>대구 파일럿 관제 및 PQ 거버넌스 활성화</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#2E5C4E]/10 text-[#2E5C4E] rounded-full text-xs font-jetbrains font-semibold">
+                  <span className="w-2 h-2 rounded-full bg-[#2E5C4E]"></span>
+                  <span>운영자 모드: 대구 100동 노후주택 및 시공사 PQ 거버넌스</span>
                 </div>
               )}
             </div>
-          </div>
+          </section>
 
-          {/* Right: Dashboard Preview Card */}
-          <div className="dashboard-preview">
-            <div className="audit-info">
-              <h3>Operator Audit Interface</h3>
-              <p>대구 100동 노후주택 공동수주 파이프라인 가동 중</p>
+          {/* Section Breadcrumbs / Header Info */}
+          <div className="px-8 sm:px-14 pt-8">
+            <div className="border-l-2 border-[#2E5C4E] pl-4 mb-6">
+              <span className="meta-label text-[#2E5C4E] block mb-0.5">
+                {headerInfo.tag}
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#111113]">
+                {headerInfo.title}
+              </h3>
+              <p className="text-xs text-[#111113]/60 mt-1 max-w-2xl">
+                {headerInfo.desc}
+              </p>
             </div>
 
-            <div className="metric-list">
-              <div className="metric-item">
-                <span className="label">Buildings Registered</span>
-                <span className="value">{buildings.length} EA</span>
-              </div>
-              <div className="metric-item">
-                <span className="label">Verified Contractors</span>
-                <span className="value">{contractors.length} FIRMS</span>
-              </div>
-              <div className="metric-item">
-                <span className="label">Cluster Cost Benefit</span>
-                <span className="value text-[#059669]">최대 22%</span>
-              </div>
-              <div className="metric-item">
-                <span className="label">Escrow Assurance</span>
-                <span className="value text-[#1a1c1e]">SGI 100%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Sub-Nav Shortcuts (Role-Specific) */}
-      <div className="border-b border-[rgba(26,28,30,0.08)] bg-[#fdfcf8]/80 sticky top-[73px] z-30 px-6 lg:px-12 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 py-3 overflow-x-auto">
-          {activeRole === "customer" ? (
-            <div className="flex items-center gap-2 sm:gap-6 text-xs font-geist font-medium">
-              <button
-                onClick={() => {
-                  setIsCommunityOpen(false);
-                  setCustomerTab("home");
-                }}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  customerTab === "home" && !isCommunityOpen
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                대시보드 홈
-              </button>
-              <button
-                onClick={() => {
-                  setIsCommunityOpen(false);
-                  setCustomerTab("diagnosis");
-                }}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  customerTab === "diagnosis"
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                01. AI 진단
-              </button>
-              <button
-                onClick={() => {
+            {/* Child Components Router */}
+            {isCommunityOpen ? (
+              <NeighborCommunityBoard
+                onClose={() => setIsCommunityOpen(false)}
+                onNavigateToDemandRegister={() => {
                   setIsCommunityOpen(false);
                   setCustomerTab("cluster");
                 }}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  customerTab === "cluster"
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                02. 클러스터 & 역경매
-              </button>
-              <button
-                onClick={() => {
-                  setIsCommunityOpen(false);
-                  setCustomerTab("my_project");
-                }}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  customerTab === "my_project"
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                03. 스마트계약 & 에스크로
-              </button>
-              <button
-                onClick={() => setIsCommunityOpen(true)}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  isCommunityOpen
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                04. 이웃 소통 게시판
-              </button>
-              <button
-                onClick={() => {
-                  setIsCommunityOpen(false);
-                  setCustomerTab("my_page");
-                }}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  customerTab === "my_page"
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                05. 마이페이지
-              </button>
-            </div>
-          ) : activeRole === "contractor" ? (
-            <div className="flex items-center gap-2 sm:gap-6 text-xs font-geist font-medium">
-              <button
-                onClick={() => setContractorTab("bids_search")}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  contractorTab === "bids_search"
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                01. 묶음 수주 공고
-              </button>
-              <button
-                onClick={() => setContractorTab("bids_manage")}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  contractorTab === "bids_manage"
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                02. 제출 입찰 관리
-              </button>
-              <button
-                onClick={() => setContractorTab("reputation")}
-                className={`px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                  contractorTab === "reputation"
-                    ? "bg-[#1a1c1e] text-white"
-                    : "text-[rgba(26,28,30,0.6)] hover:text-[#1a1c1e]"
-                }`}
-              >
-                03. 그린파트너 등급·평판
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center gap-4 text-xs font-geist text-[rgba(26,28,30,0.7)]">
-              <span>운영 상태: <strong className="text-[#059669]">ONLINE (PROD)</strong></span>
-              <span>•</span>
-              <span>대구 100동 노후 주택 관제</span>
-            </div>
-          )}
-
-          <div className="hidden sm:flex items-center gap-2 text-xs font-geist text-[rgba(26,28,30,0.5)]">
-            <span>District: DAEGU METROPOLITAN</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 4. Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 py-10 pb-28 lg:pb-16 min-w-0">
-        {/* Editorial Section Header */}
-        <div className="mb-8 border-l-2 border-[#059669] pl-4">
-          <span className="font-geist text-xs text-[#059669] uppercase tracking-wider block mb-1">
-            {headerInfo.tag}
-          </span>
-          <h2 className="text-2xl font-bold tracking-tight text-[#1a1c1e]">
-            {headerInfo.title}
-          </h2>
-          <p className="text-xs text-[rgba(26,28,30,0.6)] mt-1 max-w-3xl">
-            {headerInfo.desc}
-          </p>
-        </div>
-
-        {/* View Router */}
-        {isCommunityOpen ? (
-          <NeighborCommunityBoard
-            onClose={() => setIsCommunityOpen(false)}
-            onNavigateToDemandRegister={() => {
-              setIsCommunityOpen(false);
-              setCustomerTab("cluster");
-            }}
-          />
-        ) : activeRole === "admin" ? (
-          <AdminDashboard
-            contractors={contractors}
-            buildings={buildings}
-            onUpdatePqStatus={updateContractorPqStatus}
-          />
-        ) : activeRole === "contractor" ? (
-          <ContractorHome
-            contractorProfile={myContractorProfile}
-            buildings={buildings}
-            onOpenAdminPanel={() => switchRole("admin")}
-          />
-        ) : (
-          <div>
-            {customerTab === "home" && (
-              <CustomerHome
-                myBuilding={myBuilding}
-                totalBuildingsCount={buildings.length}
-                onNavigateTab={(tab) => {
-                  setCustomerTab(tab);
-                  if (tab === "cluster") setCurrentStep(2);
-                }}
               />
-            )}
-
-            {customerTab === "diagnosis" && (
-              <Step1Diagnosis
-                onComplete={handleStep1Complete}
-                onOpenAdvisor={() => setIsAdvisorOpen(true)}
-                onOpenCommunity={() => setIsCommunityOpen(true)}
-                initialBuilding={buildingData}
-                initialDiagnosis={diagnosisResult}
-                initialImage={uploadedImage}
+            ) : activeRole === "admin" ? (
+              <AdminDashboard
+                contractors={contractors}
+                buildings={buildings}
+                onUpdatePqStatus={updateContractorPqStatus}
               />
-            )}
-
-            {customerTab === "cluster" && (
+            ) : activeRole === "contractor" ? (
+              <ContractorHome
+                contractorProfile={myContractorProfile}
+                buildings={buildings}
+                onOpenAdminPanel={() => switchRole("admin")}
+              />
+            ) : (
               <div>
-                {currentStep <= 2 && (
-                  <Step2DemandRegister
-                    building={buildingData}
-                    diagnosis={diagnosisResult || DEFAULT_INITIAL_DIAGNOSIS}
-                    onNext={handleStep2Complete}
-                    onPrev={() => setCustomerTab("home")}
+                {customerTab === "home" && (
+                  <CustomerHome
+                    myBuilding={myBuilding}
+                    totalBuildingsCount={buildings.length}
+                    onNavigateTab={(tab) => {
+                      setCustomerTab(tab);
+                      if (tab === "cluster") setCurrentStep(2);
+                    }}
                   />
                 )}
 
-                {currentStep === 3 && (
-                  <Step3Clustering
-                    building={buildingData}
-                    selectedWorks={selectedWorkIds}
-                    budgetCap={budgetCap}
-                    desiredSchedule={desiredSchedule}
-                    onNext={handleStep3Complete}
-                    onPrev={() => setCurrentStep(2)}
+                {customerTab === "diagnosis" && (
+                  <Step1Diagnosis
+                    onComplete={handleStep1Complete}
+                    onOpenAdvisor={() => setIsAdvisorOpen(true)}
+                    onOpenCommunity={() => setIsCommunityOpen(true)}
+                    initialBuilding={buildingData}
+                    initialDiagnosis={diagnosisResult}
+                    initialImage={uploadedImage}
                   />
                 )}
 
-                {currentStep === 4 && selectedCluster && (
-                  <Step4Auction
-                    building={buildingData}
-                    cluster={selectedCluster}
-                    matchingResult={matchingResult}
-                    onNext={handleStep4Complete}
-                    onPrev={() => setCurrentStep(3)}
+                {customerTab === "cluster" && (
+                  <div>
+                    {currentStep <= 2 && (
+                      <Step2DemandRegister
+                        building={buildingData}
+                        diagnosis={diagnosisResult || DEFAULT_INITIAL_DIAGNOSIS}
+                        onNext={handleStep2Complete}
+                        onPrev={() => setCustomerTab("home")}
+                      />
+                    )}
+
+                    {currentStep === 3 && (
+                      <Step3Clustering
+                        building={buildingData}
+                        selectedWorks={selectedWorkIds}
+                        budgetCap={budgetCap}
+                        desiredSchedule={desiredSchedule}
+                        onNext={handleStep3Complete}
+                        onPrev={() => setCurrentStep(2)}
+                      />
+                    )}
+
+                    {currentStep === 4 && selectedCluster && (
+                      <Step4Auction
+                        building={buildingData}
+                        cluster={selectedCluster}
+                        matchingResult={matchingResult}
+                        onNext={handleStep4Complete}
+                        onPrev={() => setCurrentStep(3)}
+                      />
+                    )}
+                  </div>
+                )}
+
+                {customerTab === "my_project" && (
+                  <div>
+                    <Step6TrustContract
+                      building={buildingData}
+                      bid={selectedBid}
+                      beforeImage={uploadedImage}
+                      onPrev={() => {
+                        setCurrentStep(1);
+                        setCustomerTab("home");
+                      }}
+                    />
+                  </div>
+                )}
+
+                {customerTab === "my_page" && (
+                  <CustomerMyPage
+                    currentUser={currentUser}
+                    building={myBuilding}
+                    onOpenCommunity={() => setIsCommunityOpen(true)}
+                    onOpenAdvisor={() => setIsAdvisorOpen(true)}
+                    onOpenOnboarding={() => setShowOnboarding(true)}
                   />
                 )}
               </div>
             )}
-
-            {customerTab === "my_project" && (
-              <div>
-                <Step6TrustContract
-                  building={buildingData}
-                  bid={selectedBid}
-                  beforeImage={uploadedImage}
-                  onPrev={() => {
-                    setCurrentStep(1);
-                    setCustomerTab("home");
-                  }}
-                />
-              </div>
-            )}
-
-            {customerTab === "my_page" && (
-              <CustomerMyPage
-                currentUser={currentUser}
-                building={myBuilding}
-                onOpenCommunity={() => setIsCommunityOpen(true)}
-                onOpenAdvisor={() => setIsAdvisorOpen(true)}
-                onOpenOnboarding={() => setShowOnboarding(true)}
-              />
-            )}
           </div>
-        )}
+        </div>
       </main>
 
-      {/* 5. Mobile Thumb-Zone Bottom Navigation */}
+      {/* 3. Mobile Thumb-Zone Bottom Navigation */}
       <BottomNav
         role={activeRole}
         currentCustomerTab={customerTab}
@@ -541,7 +535,7 @@ export default function App() {
         }}
       />
 
-      {/* 6. Onboarding Modal (Variation 3 Editorial Slate Card) */}
+      {/* 4. Onboarding Modal (Variation 4 Clean Aesthetic) */}
       {showOnboarding && (
         <SplashOnboarding
           onCompleteCustomer={(data) => {
@@ -564,7 +558,7 @@ export default function App() {
         />
       )}
 
-      {/* 7. Subsidy Advisor Modal */}
+      {/* 5. Subsidy Advisor Modal */}
       {isAdvisorOpen && (
         <SubsidyAdvisorModal
           isOpen={isAdvisorOpen}
@@ -573,11 +567,10 @@ export default function App() {
         />
       )}
 
-      {/* 8. Variation 3 Editorial Footer */}
-      <footer className="variation3-footer">
-        <div>System: 그린토피아 운영팀장 로그인됨 (대구 관제)</div>
-        <div className="hidden sm:block">© 2026 GreenTopia AI Corp. Daegu District Operations</div>
-        <div>PQ Auditor v1.0.4 • 100 Buildings Seed Active</div>
+      {/* 6. Variation 4 Quiet Footer */}
+      <footer className="py-4 px-6 sm:px-12 border-t border-[rgba(17,17,19,0.08)] bg-[#F8F7F4] flex flex-col sm:flex-row items-center justify-between gap-2 font-jetbrains text-xs text-[#111113]/50">
+        <div>GreenTopia AI Corp. Daegu District Operations</div>
+        <div>[01] ACTIVE PROJECTS 101 • COST BENEFIT -22%</div>
       </footer>
     </div>
   );
